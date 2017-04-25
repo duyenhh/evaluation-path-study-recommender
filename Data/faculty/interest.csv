@@ -1,0 +1,180 @@
+1,MAT1099,5,Toan
+1,MAT1100,4,Toan
+1,ELT2028,1,Toan
+1,ELT2031,2,Toan
+1,ELT3144,4,Toan
+1,BSA2022,2,Toan
+1,INE1150,2,Toan
+1,INE1151,2,Toan
+1,JAP2003,1,Toan
+1,INT3117,3,Toan
+1,INT3105,1,Toan
+1,INT3106,2,Toan
+1,INT3108,3,Toan
+1,INT3109,2,Toan
+1,INT3111,1,Toan
+1,INT3115,2,Toan
+1,INT3120,4,Toan
+1,INT3206,4,Toan
+1,INT3207,4,Toan
+1,INT3209,5,Toan
+1,INT3213,3,Toan
+1,INT3216,3,Toan
+1,INT3217,2,Toan
+1,INT2020,2,Toan
+1,INT3301,1,Toan
+1,INT3303,1,Toan
+1,INT3304,1,Toan
+1,INT3305,2,Toan
+1,INT3307,2,Toan
+1,INT3309,1,Toan
+1,INT3310,1,Toan
+1,INT3501,3,Toan
+1,INT3505,3,Toan
+1,INT3506,2,Toan
+1,INT3404,4,Toan
+1,INT3407,3,Toan
+2,MAT1099,1,Lap trinh
+2,MAT1100,5,Lap trinh
+2,ELT2028,3,Lap trinh
+2,ELT2031,3,Lap trinh
+2,ELT3144,2,Lap trinh
+2,BSA2022,1,Lap trinh
+2,INE1150,1,Lap trinh
+2,INE1151,1,Lap trinh
+2,JAP2003,1,Lap trinh
+2,INT3117,3,Lap trinh
+2,INT3105,2,Lap trinh
+2,INT3106,2,Lap trinh
+2,INT3108,2,Lap trinh
+2,INT3109,3,Lap trinh
+2,INT3111,4,Lap trinh
+2,INT3115,5,Lap trinh
+2,INT3120,5,Lap trinh
+2,INT3206,3,Lap trinh
+2,INT3207,2,Lap trinh
+2,INT3209,5,Lap trinh
+2,INT3213,3,Lap trinh
+2,INT3216,3,Lap trinh
+2,INT3217,5,Lap trinh
+2,INT2020,3,Lap trinh
+2,INT3301,2,Lap trinh
+2,INT3303,2,Lap trinh
+2,INT3304,4,Lap trinh
+2,INT3305,3,Lap trinh
+2,INT3307,3,Lap trinh
+2,INT3309,3,Lap trinh
+2,INT3310,2,Lap trinh
+2,INT3501,3,Lap trinh
+2,INT3505,3,Lap trinh
+2,INT3506,4,Lap trinh
+2,INT3404,2,Lap trinh
+2,INT3407,2,Lap trinh
+3,MAT1099,3,Hoc thuoc
+3,MAT1100,2,Hoc thuoc
+3,ELT2028,1,Hoc thuoc
+3,ELT2031,2,Hoc thuoc
+3,ELT3144,1,Hoc thuoc
+3,BSA2022,5,Hoc thuoc
+3,INE1150,4,Hoc thuoc
+3,INE1151,4,Hoc thuoc
+3,JAP2003,5,Hoc thuoc
+3,INT3117,2,Hoc thuoc
+3,INT3105,3,Hoc thuoc
+3,INT3106,3,Hoc thuoc
+3,INT3108,1,Hoc thuoc
+3,INT3109,3,Hoc thuoc
+3,INT3111,3,Hoc thuoc
+3,INT3115,2,Hoc thuoc
+3,INT3120,2,Hoc thuoc
+3,INT3206,1,Hoc thuoc
+3,INT3207,1,Hoc thuoc
+3,INT3209,1,Hoc thuoc
+3,INT3213,2,Hoc thuoc
+3,INT3216,3,Hoc thuoc
+3,INT3217,2,Hoc thuoc
+3,INT2020,2,Hoc thuoc
+3,INT3301,1,Hoc thuoc
+3,INT3303,2,Hoc thuoc
+3,INT3304,2,Hoc thuoc
+3,INT3305,3,Hoc thuoc
+3,INT3307,4,Hoc thuoc
+3,INT3309,2,Hoc thuoc
+3,INT3310,2,Hoc thuoc
+3,INT3501,4,Hoc thuoc
+3,INT3505,3,Hoc thuoc
+3,INT3506,2,Hoc thuoc
+3,INT3404,3,Hoc thuoc
+3,INT3407,4,Hoc thuoc
+4,MAT1099,1,Tieng anh
+4,MAT1100,3,Tieng anh
+4,ELT2028,3,Tieng anh
+4,ELT2031,3,Tieng anh
+4,ELT3144,2,Tieng anh
+4,BSA2022,2,Tieng anh
+4,INE1150,2,Tieng anh
+4,INE1151,2,Tieng anh
+4,JAP2003,3,Tieng anh
+4,INT3117,3,Tieng anh
+4,INT3105,3,Tieng anh
+4,INT3106,1,Tieng anh
+4,INT3108,1,Tieng anh
+4,INT3109,4,Tieng anh
+4,INT3111,4,Tieng anh
+4,INT3115,4,Tieng anh
+4,INT3120,4,Tieng anh
+4,INT3206,1,Tieng anh
+4,INT3207,1,Tieng anh
+4,INT3209,2,Tieng anh
+4,INT3213,2,Tieng anh
+4,INT3216,3,Tieng anh
+4,INT3217,1,Tieng anh
+4,INT2020,1,Tieng anh
+4,INT3301,1,Tieng anh
+4,INT3303,1,Tieng anh
+4,INT3304,1,Tieng anh
+4,INT3305,3,Tieng anh
+4,INT3307,2,Tieng anh
+4,INT3309,2,Tieng anh
+4,INT3310,1,Tieng anh
+4,INT3501,3,Tieng anh
+4,INT3505,3,Tieng anh
+4,INT3506,3,Tieng anh
+4,INT3404,3,Tieng anh
+4,INT3407,3,Tieng anh
+5,MAT1099,0,Bai tap nhom
+5,MAT1100,0,Bai tap nhom
+5,ELT2028,1,Bai tap nhom
+5,ELT2031,0,Bai tap nhom
+5,ELT3144,0,Bai tap nhom
+5,BSA2022,0,Bai tap nhom
+5,INE1150,0,Bai tap nhom
+5,INE1151,0,Bai tap nhom
+5,JAP2003,0,Bai tap nhom
+5,INT3117,0,Bai tap nhom
+5,INT3105,0,Bai tap nhom
+5,INT3106,0,Bai tap nhom
+5,INT3108,0,Bai tap nhom
+5,INT3109,0,Bai tap nhom
+5,INT3111,0,Bai tap nhom
+5,INT3115,1,Bai tap nhom
+5,INT3120,1,Bai tap nhom
+5,INT3206,0,Bai tap nhom
+5,INT3207,0,Bai tap nhom
+5,INT3209,0,Bai tap nhom
+5,INT3213,0,Bai tap nhom
+5,INT3216,0,Bai tap nhom
+5,INT3217,0,Bai tap nhom
+5,INT2020,0,Bai tap nhom
+5,INT3301,0,Bai tap nhom
+5,INT3303,0,Bai tap nhom
+5,INT3304,0,Bai tap nhom
+5,INT3305,1,Bai tap nhom
+5,INT3307,0,Bai tap nhom
+5,INT3309,1,Bai tap nhom
+5,INT3310,0,Bai tap nhom
+5,INT3501,0,Bai tap nhom
+5,INT3505,1,Bai tap nhom
+5,INT3506,0,Bai tap nhom
+5,INT3404,1,Bai tap nhom
+5,INT3407,0,Bai tap nhom
