@@ -84,8 +84,10 @@ public class MinCostMaxFlow {
 		return found[sink];
 	}
 
+	
+	
 
-	public double[] getMaxFlow(student stu) throws IOException {
+	public boolean[] getMaxFlow(student stu, String namefile) throws IOException {
 		this.cap = stu.getCap();
 		this.cost = stu.getCost();
 		N = cap.length;
@@ -95,7 +97,8 @@ public class MinCostMaxFlow {
 		this.cost = stu.getCost();
 		String msv = stu.getMSV();
 		//this.isRe = isRe;
-		BufferedWriter bw = new BufferedWriter(new FileWriter("Data/Result/"+stu.getNameFile()));
+		BufferedWriter bw = new BufferedWriter(new FileWriter("Data/"+namefile+"/"+stu.getNameFile()));
+		
 		found = new boolean[N];
 		choose = new boolean[N];
 		flow = new int[N][N];
@@ -165,12 +168,19 @@ public class MinCostMaxFlow {
 	bw.close();
 	
 	//br.close();
-	return new double[]{ totflow, totcost };
+	//return new double[]{ totflow, totcost };
+	//getMaxFlow(stu.setNewCap(choose));
+	return choose.clone();
 }
 	
+	public void getMutipleResult(student stu) throws IOException, CloneNotSupportedException {
+				boolean[] choose1 = getMaxFlow(stu,"Result");
+				student stu2 = stu.setNewCap(choose1);
+				getMaxFlow(stu2, "Result2");
+			
+	}
 	
-	
-	public static void run(double a, double b, double c, double d, faculty CNTT, faculty CNTT_CLC ) throws IOException
+	public static void run(double a, double b, double c, faculty CNTT, faculty CNTT_CLC ) throws IOException, CloneNotSupportedException
 	{
 		Scanner avg = new Scanner(new File("data/Score/AVG.csv"));
 		double[] AVG = new double[500];
@@ -184,6 +194,7 @@ public class MinCostMaxFlow {
 		int studentNum = 20;
 		for(int i = 1; i <= studentNum ; i++)
 			{
+			//if(i==19)continue;
 			double [] interest = new double[4];
 			String []inter_ = inter.nextLine().split(",");
 			int target = Integer.parseInt(inter_[1]);
@@ -196,26 +207,40 @@ public class MinCostMaxFlow {
 			if(i<12)   stu = new student(1,CNTT,"#"+i+".csv",AVG[i-1],target,interest);
 			else stu = new student(1,CNTT_CLC,"#"+i+".csv",AVG[i-1],target,interest);
 				//s1.get_score_CF(1);
-			stu.get_cost_combine(a,b,c,d);
+			stu.get_cost_combine(a,b,c);
 				MinCostMaxFlow mcmf = new MinCostMaxFlow();
-				mcmf.getMaxFlow(stu);
+				mcmf.getMutipleResult(stu);
 				
 			}
-		double SUM = 0.0; 
+		double SUM1 = 0.0; 
 			for(int i = 1; i <=studentNum ; i++)
 			{
+				if(i==19)continue;
 				SimilarityCompare eva = new SimilarityCompare();
-				SUM+=eva.Caculation(i);
+				SUM1+=eva.Caculation(i,"Result");
 				//System.out.println("/ " + eva.Caculation(i) );
 			}
+			
 		//System.out.println("CF / Predict Score / Target / Interest : " + a +" --- "+ b + " --- " + c + " --- "+ d + "    = "
-			System.out.println(SUM/(double)studentNum);
-		//	System.out.println(SUM/7.0);
+		//	System.out.println("----------------------------------------------RESULT 1 : "+SUM1/19);
+			
+			double SUM2 = 0.0; 
+			for(int i = 1; i <=studentNum ; i++)
+			{
+				if(i==19)continue;
+				SimilarityCompare eva = new SimilarityCompare();
+				SUM2+=eva.Caculation(i,"Result2");
+				//System.out.println("/ " + eva.Caculation(i) );
+			}
+			//System.out.println("----------------------------------------------RESULT 2 : "+SUM2/19);
+			
+			
+			System.out.println(SUM1/19);
 
     
 	}
 	
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, CloneNotSupportedException {
 	// TODO Auto-generated method stub
 		faculty CNTT = new faculty("Cong Nghe Thong Tin", "data/faculty/CNTT_2012");
 		faculty CNTT_CLC = new faculty("Cong Nghe Thong Tin", "data/faculty/CNTT_CLC_2012");
@@ -232,26 +257,30 @@ public class MinCostMaxFlow {
 		*/
 		
 		// read Diem TB 'AVG' cho tung sinh vien
-		
-		
-		
-		run(1,0,0,0,CNTT,CNTT_CLC);
-		run(0,1,0,0,CNTT,CNTT_CLC);
-		run(0,0,1,0,CNTT,CNTT_CLC);
-		run(0,0,0,1,CNTT,CNTT_CLC);
-		run(0.25,0.25,0.25,0.25,CNTT,CNTT_CLC);
-		run(0.5,0.5,0,0,CNTT,CNTT_CLC);
-		run(0.5,0,0.5,0,CNTT,CNTT_CLC);
-		run(0.5,0,0,0.5,CNTT,CNTT_CLC);
-		run(0,0.5,0.5,0,CNTT,CNTT_CLC);
-		run(0,0.5,0,0.5,CNTT,CNTT_CLC);
-		run(0,0,0.5,0.5,CNTT,CNTT_CLC);
-		run(0,0.33333333,0.33333333,0.33333333,CNTT,CNTT_CLC);
-		run(0.33333333,0,0.33333333,0.33333333,CNTT,CNTT_CLC);
-		run(0.33333333,0.33333333,0,0.33333333,CNTT,CNTT_CLC);
-		run(0.33333333,0.33333333,0.33333333,0,CNTT,CNTT_CLC);
-		run(0.4, 0.3, 0.2, 0.1, CNTT,CNTT_CLC);
-		run(0.8, 0.2, 0, 0, CNTT,CNTT_CLC);
+		run(1,0,0,CNTT,CNTT_CLC);
+		run(0,1,0,CNTT,CNTT_CLC);
+		run(0,0,1,CNTT,CNTT_CLC);
+		run(0.33,0.33,0.33,CNTT,CNTT_CLC);
+		run(0.50,0.50,0.00,CNTT,CNTT_CLC);
+		run(0.00,0.50,0.50,CNTT,CNTT_CLC);
+		run(0.50,0.00,0.50,CNTT,CNTT_CLC);
+		run(0.60,0.20,0.20,CNTT,CNTT_CLC);
+		run(0.20,0.60,0.20,CNTT,CNTT_CLC);
+		run(0.20,0.20,0.60,CNTT,CNTT_CLC);
+		run(0.80,0.10,0.10,CNTT,CNTT_CLC);
+		run(0.40,0.40,0.20,CNTT,CNTT_CLC);
+		run(0.40,0.20,0.40,CNTT,CNTT_CLC);
+		run(0.20,0.40,0.40,CNTT,CNTT_CLC);
+		run(0.45,0.10,0.45,CNTT,CNTT_CLC);
+		run(0.90,0.05,0.05,CNTT,CNTT_CLC);
+		run(0.70,0.10,0.20,CNTT,CNTT_CLC);
+		run(0.475,0.05,0.475,CNTT,CNTT_CLC);
+		run(0.495,0.01,0.495,CNTT,CNTT_CLC);
+
+
+
+
+
 
 
 		

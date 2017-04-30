@@ -19,9 +19,9 @@ public class SimilarityCompare {
 
 
 		private List<String> realStudiedCourses = new ArrayList<String>();
-		public double Caculation(int number) throws IOException{
+		public double Caculation(int number,String result) throws IOException{
 			BufferedReader br_Real= new BufferedReader(new FileReader("Data/student_info/real_data/#"+number+".csv"));
-			BufferedReader br_Result= new BufferedReader(new FileReader("Data/Result/#"+number+".csv"));
+			BufferedReader br_Result= new BufferedReader(new FileReader("Data/"+result+"/#"+number+".csv"));
 			
 			
 			String line_Real;
@@ -56,7 +56,7 @@ public class SimilarityCompare {
 				else{
 					if (realStudiedCourses.contains(temp[1])) 
 						{//test
-						//System.out.println("BAD 01 : "+temp[0]+"  "+ temp[1] );	
+					///	System.out.println("BAD 01 : "+temp[0]+"  "+ temp[1] );	
 						m01++;
 						}
 					else m00++;
@@ -64,10 +64,27 @@ public class SimilarityCompare {
 				}
 			}
 			double smc = (double) (m00+m11)/(m00+m01+m10+m11);
+			System.out.println("m11 : "+m11 + " --m00 : "+m00+ " --m01: "+ m01+" --m10 : "+m01);
+			//System.out.println(m11+"  "+ m00 + "   "+ m01 + "   "+ m10);
+			double precision = Math.round(((double) m11/(m11+m10))*10000.0)/10000.0;
+		//	Math.round(((double) (m11)/(m11+m01))*10000.0)/10000.0
+			
+			double recall =Math.round(((double) (m11)/(m11+m01))*10000.0)/10000.0;
+			
+			double MAE = (double)(m01+m10)/(m00+m01+m10+m11);
 			//test
-			//System.out.println(smc);
+			System.out.println("recall : " + recall);
+			System.out.println("precision : "+ precision);
+			System.out.println("smc : " + smc);
+			System.out.println("MAE : "+ MAE);
+			
 			br_Result.close();
-			return smc;// TODO Auto-generated constructor stub
+		//	return MAE;
+		//	return smc;// TODO Auto-generated constructor stub
+		// return precision;
+			return recall;
+		//	System.out.println((2*precision*recall)/(precision+recall));
+		//	return ((2.0*precision*recall*10.0)/((precision+recall)*10.0));
 	}
 
 	/**

@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
+
 import evaluation.SimilarityCompare;
 import minCostMaxFlow_model.MinCostMaxFlow;
 
@@ -42,6 +44,20 @@ public class student {
 	 * @throws IOException
 	 * 
 	 */
+	public student(student stu) {
+		this.cost = stu.cost;
+		this.cap = stu.cap;
+		this.name_file = stu.name_file;
+		this.MSV = stu.MSV;
+		this.yearSchool = stu.yearSchool;
+		this.fal = stu.fal;
+		this.target = stu.target;
+		this.interest = stu.interest;
+		this.StudiedCourses = stu.StudiedCourses;
+		this.total_ = 0;
+		this.current_avg = stu.current_avg;
+		this.NumberOfCourses = stu.NumberOfCourses;
+	}
 	public student(int yearSchool_, faculty fal_, String name_file_,double current_avg_,int tar,double[] inter) throws IOException {
 		name_file =  name_file_;
 		yearSchool = yearSchool_;
@@ -258,7 +274,7 @@ public class student {
 	 * @param Predict_heso : de so cua rnag buoc Du doan diem
 	 * @throws IOException
 	 */
-	 public void get_cost_combine(double CF_heso, double Predict_heso, double Target_heso, double Interest_heso)
+	 public void get_cost_combine(double main_heso, double Target_heso, double Interest_heso)
 			 throws IOException
 	 {
 		 double[] CF_score = get_score_CF();
@@ -268,7 +284,7 @@ public class student {
 		 // combine 2 rangs buoc tren = 1 - (CF_score[i]-Pre_score[i]); 
 		 for(int i = 1; i<=NumberOfCourses; i++ )
 		 {
-			 this.cost[0][i] = 1.0-CF_heso*CF_score[i]-Predict_heso*Pre_score[i]- Target_heso*Target_score[i]- Interest_heso* Interest_score[i]; 
+			 this.cost[0][i] = 1.0-main_heso*CF_score[i]*Pre_score[i]- Target_heso*Target_score[i]- Interest_heso* Interest_score[i]; 
 		 }
 		 
 //		 for(int h = 0;h<cost.length;h++)
@@ -304,8 +320,84 @@ public class student {
 		 
 		 
 	 }*/
-	 
 	
+	public int getIndexMax(boolean[] choosen){
+		
+		int[] indexChoose = new int[NumberOfCourses];
+		int count= 0;
+		for(int i = 0; i < choosen.length ; i++)
+		{
+			if (choosen[i]) {
+				indexChoose[count++]=i;
+			}
+		}
+		int indexMax = indexChoose[0];
+		for(int i = 1; i < count; i++){
+			//if(!choosen[i] ) continue;
+			if(this.cost[0][indexChoose[i]] > this.cost[0][indexChoose[i-1]]) indexMax = indexChoose[i];
+		}
+		return indexMax;
+	}
+	
+	public int[] getIndexs(boolean[] choosen) {
+		int[] newArr = new int[3];
+		for(int i = 0; i<3;i++){
+			newArr[i]=getIndexMax(choosen);
+			choosen[newArr[i]]=false;
+		}
+		
+		return newArr;
+	}
+	
+	public student setNewCap(boolean[] choosen) throws CloneNotSupportedException {
+		student newStudent= (student) this.clone();
+		int[] indexMaxs = getIndexs(choosen);
+		for(int i = 0 ; i<indexMaxs.length; i++)
+		{
+			int indexMax = indexMaxs[i];
+			//System.out.println("ok new student ! max cost at : " + indexMax);
+			//	showCap();
+				newStudent.cap[0][indexMax+1]=0;
+		}
+		//System.out.println("ok new student ! max cost at : " + indexMax);
+	//	showCap();
+	//	newStudent.cap[0][indexMax+1]=0;
+		//System.out.println("after set cap ");
+		//showCap();
+		
+		
+		return newStudent;
+	}
+	
+	public void  showCap() {
+		 for(int h = 0;h<cap.length;h++)
+				{
+					for(int k = 0; k < cap[0].length;k++) System.out.print(cap[h][k] + "     ");
+					System.out.println(" ");
+				}
+	}
+	
+	
+	public student clone() {
+		return new student(this);
+	}
+	 
+	public void sort(int arr[])
+	{
+	 int i, j, temp ;
+		for ( i = 0 ; i <= 7 ; i++ )
+		{
+			for ( j = i + 1 ; j <= 8 ; j++ )
+			{
+				if ( arr[i] > arr[j] )
+				{
+					temp = arr[i] ;
+					arr[i] = arr[j] ;
+					arr[j] = temp ;
+				}
+			}
+		}
+	}
 
 
 
