@@ -127,14 +127,13 @@ public final class faculty {
 		 // Map 'id' trong 'var' --> 'STT'
 			for (int j = 0; j < var.length; j++)
 			{		String MM= var[j];
-		try {
-				STT[j]= (int) Map_ID_STT.get(MM);
-
-		} catch (Exception e) {
-			//System.out.println("ERROR ! " + MM +"  ko co trong target file :/ ");
-			STT[j]=-1;
-		
-		} }
+				try {
+						STT[j]= (int) Map_ID_STT.get(MM);
+				} catch (Exception e) {
+					//System.out.println("ERROR ! " + MM +"  ko co trong target file :/ ");
+					STT[j]=-1;
+				} 
+			}
 		 // set value cho target[][]
 		 // moi TARGET (row) ung voi moi COURSE (column)
 		 // chu y : doc den index nao trong 'line' thi set value [target_row] [ STT[index] ]

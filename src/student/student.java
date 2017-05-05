@@ -146,31 +146,35 @@ public class student {
 		 
 		 while ( input.hasNext())
 		 {
-			 // doc tung dong voi dinh dang "MSV,null/ma mon,ma chu cua mon"
-			 String[] line = input.nextLine().split(",");
-			 MSV = line[0];
-			 //neu ma mon ( Id ) = null -> mon nay khong nam trong khung chuong trinh cua khoa fal --> bo qua
-			 if(line[1].equals("null")) continue;
-			 //xu ly ma mon de xac dinh vi tri (STT)  cua mon trong mo hinh MinCost_MaxFlow
-			 String id_course = line[2];
-			 StudiedCourses.add(id_course);
-			 try{
-			 // neu khong tim thay trong fal.(Map_ID_STT) -> day khong phai la mon tu chon ---> catch exception 
-			 int index = (int) fal.Map_ID_STT.get(id_course); // STT của course này trong cap[][] và cost[][]
-			// System.out.println(id_course + "---> " + index + "--- OK");
-			 // xác định course dựa trên STT và arrayList "courses" của mỗi faculty 
-			 course c = fal.courses.get(index-1); 
-			 int credit = c.getCredit(); //số tín chỉ
-			 // xác định index ràng buộc của course này trong cap[][] và cost[][]
-			 int require_index = fal.numberOfCourse+ c.getRequirement_ID(); 
-			//set cap từ nguồn ( source đến các môn đã học bằng 0)
-			 cap[0][index] = 0; 
-			// caution !!! 
-			 cap[require_index][cap.length-1]-=credit; //cap từ require_index đến đích (sink) đc giảm một lượng = số tc của các môn đã học.
-			 }
-			 catch (Exception e) {
-//				 e.printStackTrace();
-//				 System.out.println(" khong tim thay trong fal.(Map_ID_STT) de set tu nguon den = 0");
+			// doc tung dong voi dinh dang "MSV,null/ma mon,ma chu cua mon"
+			String[] line = input.nextLine().split(",");
+			MSV = line[0];
+			// neu ma mon ( Id ) = null -> mon nay khong nam trong khung chuong
+			// trinh cua khoa fal --> bo qua
+			if (line[1].equals("null")) continue;
+			// xu ly ma mon de xac dinh vi tri (STT) cua mon trong mo hinh
+			// MinCost_MaxFlow
+			String id_course = line[2];
+			StudiedCourses.add(id_course);
+			try
+				{
+				// neu khong tim thay trong fal.(Map_ID_STT) -> day khong phai la mon tu chon ---> catch exception 
+				int index = (int) fal.Map_ID_STT.get(id_course); // STT của course này trong cap[][] và cost[][]
+				// System.out.println(id_course + "---> " + index + "--- OK");
+				// xác định course dựa trên STT và arrayList "courses" của mỗi faculty 
+				course c = fal.courses.get(index-1); 
+				int credit = c.getCredit(); //số tín chỉ
+				// xác định index ràng buộc của course này trong cap[][] và cost[][]
+				int require_index = fal.numberOfCourse+ c.getRequirement_ID(); 
+				//set cap từ nguồn ( source đến các môn đã học bằng 0)
+				cap[0][index] = 0; 
+				// caution !!! 
+				cap[require_index][cap.length-1]-=credit; //cap từ require_index đến đích (sink) đc giảm một lượng = số tc của các môn đã học.
+				}
+			catch (Exception e) {
+				// e.printStackTrace();
+				// System.out.println(" khong tim thay trong fal.(Map_ID_STT) de
+				// set tu nguon den = 0");
 				continue;
 			}
 		 }
@@ -184,29 +188,30 @@ public class student {
 	 * @throws IOException
 	 */
 	public double[] get_score_CF() throws IOException
-	 {
-		 // khoi tao Array : 'CF_score[]' && len = [NumberOfCourses+1] 
-		 double [] CF_score = new double[NumberOfCourses+1];
-		// Doc tung dong trong file 
-		 Scanner input_CF = new Scanner(new FileReader("data/Score/CF/"+name_file));
-		 while ( input_CF.hasNext())
-		 {
-			 // each 'line' co dinh dang : (MSV, id_course, ket qua du doan)
-			 String[] line = input_CF.nextLine().split(",");
-			 String id_course = line[1];
-			 double CF = Double.parseDouble(line[2]);
-			 // Tim 'index' tuong ung cua tung mon , luc nay 'CF_score[index]' co gia tri <-> cap[0][index]
-			try {int index = (int) fal.Map_ID_STT.get(id_course);
-			 		CF_score[index]=CF;
-				
-			} catch (Exception e) {
-				//System.out.println("## "+ id_course);
-			} 
-			
-		 }
-		 return CF_score;
+	{
+		// khoi tao Array : 'CF_score[]' && len = [NumberOfCourses+1]
+		double[] CF_score = new double[NumberOfCourses + 1];
+		// Doc tung dong trong file
+		Scanner input_CF = new Scanner(new FileReader("data/Score/CF/" + name_file));
+		while (input_CF.hasNext()) {
+			// each 'line' co dinh dang : (MSV, id_course, ket qua du doan)
+			String[] line = input_CF.nextLine().split(",");
+			String id_course = line[1];
+			double CF = Double.parseDouble(line[2]);
+			// Tim 'index' tuong ung cua tung mon , luc nay 'CF_score[index]' co
+			// gia tri <-> cap[0][index]
+			try {
+				int index = (int) fal.Map_ID_STT.get(id_course);
+				CF_score[index] = CF;
 
-	 }
+			} catch (Exception e) {
+				// System.out.println("## "+ id_course);
+			}
+
+		}
+		return CF_score;
+
+	}
 	 /**
 	 * @method get_score_Predict(double heso) 
 	 * @purpose return double[] as predict score results of 'not learn yet courses' ( take from file ) by model 'score prediction' for each student
@@ -214,27 +219,26 @@ public class student {
 	 * @return double [NumberOfCourses+1]
 	 * @throws IOException
 	 */
-	 public double[] get_score_Predict() throws IOException
-	 {
-		 Scanner input_Predict = new Scanner(new FileReader("data/Score/Predict_Score/"+name_file));
-		 double[] Pre_score=new double[NumberOfCourses+1];
-		 // fill array 'Pre_score' = Diem trung binh
-		 Arrays.fill(Pre_score, (current_avg/10));
-		 while ( input_Predict.hasNext())
-		 {
-			 String[] line = input_Predict.nextLine().split(",");
-			 String id_course = line[1];
-			 double Pre = Double.parseDouble(line[2])/10;
-			try{ int index = (int) fal.Map_ID_STT.get(id_course);
-			 Pre_score[index] = Pre;}
-			catch (Exception e) {
-			//	System.out.println("predict : " + id_course);
+	public double[] get_score_Predict() throws IOException {
+		Scanner input_Predict = new Scanner(new FileReader("data/Score/Predict_Score/" + name_file));
+		double[] Pre_score = new double[NumberOfCourses + 1];
+		// fill array 'Pre_score' = Diem trung binh
+		Arrays.fill(Pre_score, (current_avg / 10));
+		while (input_Predict.hasNext()) {
+			String[] line = input_Predict.nextLine().split(",");
+			String id_course = line[1];
+			double Pre = Double.parseDouble(line[2]) / 10;
+			try {
+				int index = (int) fal.Map_ID_STT.get(id_course);
+				Pre_score[index] = Pre;
+			} catch (Exception e) {
+				// System.out.println("predict : " + id_course);
 				continue;
 				// TODO: handle exception
 			}
-		 }
-		 return Pre_score;
-	 }
+		}
+		return Pre_score;
+	}
 	 
 	 /**
 	 * @purpose set score target base on student.'target'
@@ -306,11 +310,11 @@ public class student {
 				 double[] Pre_score = this.get_score_Predict();
 //				 double[] Target_score = get_score_target();
 //				 double[] Interest_score = get_score_interest();
-				// combine 2 rang buoc tren = 1 - (CF_score[i]*Pre_score[i]); 
+//				 combine 2 rang buoc tren = 1 - (CF_score[i]*Pre_score[i]); 
 				 for(int i = 1; i <= NumberOfCourses; i++)
 				 {
 					 cost[0][i]=cost[0][i]-CF_score[i]*Pre_score[i];
-							 //- Target_heso*Target_score[i]- Interest_heso* Interest_score[i];
+					 //- Target_heso*Target_score[i]- Interest_heso* Interest_score[i];
 				 }
 		 }
 	 
@@ -320,48 +324,72 @@ public class student {
 		 
 		 
 	 }*/
-	
+
+
+	/**
+	 * @purpose tim index ma tai do cost MAX
+	 * @param choosen
+	 * @return indexMax
+	 */
 	public int getIndexMax(boolean[] choosen){
 		
-		int[] indexChoose = new int[NumberOfCourses];
-		int count= 0;
-		for(int i = 0; i < choosen.length ; i++)
-		{
-			if (choosen[i]) {
-				indexChoose[count++]=i;
+//		int[] indexChoose = new int[NumberOfCourses];
+//		int count= 0;
+//		for(int i = 0; i < choosen.length ; i++)
+//		{
+//			if (choosen[i]) {
+//				indexChoose[count++]=i;
+//			}
+//		}
+		int indexMax = -1;
+		double costMax = 0.0;
+		System.out.println("???" + choosen.length);
+		for(int i = 1; i < NumberOfCourses; i++){
+			if(!choosen[i]  ) continue;
+			
+			if(this.cost[0][i] > costMax) {
+				indexMax = i;
+				costMax = this.cost[0][i] ;
 			}
 		}
-		int indexMax = indexChoose[0];
-		for(int i = 1; i < count; i++){
-			//if(!choosen[i] ) continue;
-			if(this.cost[0][indexChoose[i]] > this.cost[0][indexChoose[i-1]]) indexMax = indexChoose[i];
-		}
+		System.out.println("OK" + (indexMax) +"  "+ cost[0][indexMax]);
 		return indexMax;
 	}
 	
+	/**
+	 * @purpose : lay S = mot tap n so co cost[][] lon nhat trong choosen 
+	 * @param choosen
+	 * @return S
+	 */
 	public int[] getIndexs(boolean[] choosen) {
-		int[] newArr = new int[3];
-		for(int i = 0; i<3;i++){
+		int[] newArr = new int[2];
+		for(int i = 0; i<2;i++){
 			newArr[i]=getIndexMax(choosen);
 			choosen[newArr[i]]=false;
-		}
-		
+			}
 		return newArr;
 	}
 	
+	
+	/**
+	 * @purpose tao mot student moi co cap[][] dc set = 0 cho nhung mon co cost[][] cao nhat
+	 * @param choosen
+	 * @return new student with fixed cap
+	 * @throws CloneNotSupportedException
+	 */
 	public student setNewCap(boolean[] choosen) throws CloneNotSupportedException {
 		student newStudent= (student) this.clone();
 		int[] indexMaxs = getIndexs(choosen);
 		for(int i = 0 ; i<indexMaxs.length; i++)
 		{
 			int indexMax = indexMaxs[i];
-			//System.out.println("ok new student ! max cost at : " + indexMax);
+			System.out.println("ok new student ! max cost at : " + (indexMax));
 			//	showCap();
-				newStudent.cap[0][indexMax+1]=0;
+			newStudent.cap[0][indexMax]=0;
 		}
 		//System.out.println("ok new student ! max cost at : " + indexMax);
-	//	showCap();
-	//	newStudent.cap[0][indexMax+1]=0;
+		//	showCap();
+		//	newStudent.cap[0][indexMax+1]=0;
 		//System.out.println("after set cap ");
 		//showCap();
 		
